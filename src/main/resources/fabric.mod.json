@@ -17,6 +17,9 @@
 	"entrypoints": {
 		"main": [
 			"com.hezaerd.SimpleMention"
+		],
+		"client": [
+			"com.hezaerd.SimpleMentionClient"
 		]
 	},
 	"mixins": [
