@@ -1,0 +1,7 @@
+{
+  "text.autoconfig.simple-mention.title": "Simple Mention Configuration",
+  "text.autoconfig.simple-mention.option.playSound": "Jouer un son",
+  "text.autoconfig.simple-mention.option.playSound.@Tooltip": "Jouer un son lorsque vous êtes mentionné dans le chat",
+  "text.autoconfig.simple-mention.option.desktopNotification": "Notification de bureau",
+  "text.autoconfig.simple-mention.option.desktopNotification.@Tooltip": "Afficher une notification de bureau lorsque vous êtes mentionné dans le chat sans se concentrer sur le jeu"
+}

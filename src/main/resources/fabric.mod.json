@@ -15,12 +15,9 @@
 	"icon": "assets/simple-mention/icon.png",
 	"environment": "*",
 	"entrypoints": {
-		"main": [
-			"com.hezaerd.SimpleMention"
-		],
-		"client": [
-			"com.hezaerd.SimpleMentionClient"
-		]
+		"main": ["com.hezaerd.SimpleMention"],
+		"client": ["com.hezaerd.SimpleMentionClient"],
+		"modmenu": ["com.hezaerd.config.SimpleMentionModMenu"]
 	},
 	"mixins": [
 		"simple-mention.mixins.json"
@@ -32,6 +29,13 @@
 		"fabric-api": "*"
 	},
 	"suggests": {
-		"another-mod": "*"
+		"modmenu": "*"
+	},
+	"custom": {
+		"modmenu": {
+			"links": {
+				"homepage": "https://github.com/Hezaerd/simple-mention"
+			}
+		}
 	}
 }
