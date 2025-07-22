@@ -55,21 +55,10 @@ public abstract class ServerPlayerEntityMixin {
                         + Text.translatable("text.action.simple-mention.ping").getString()
         );
 
-        if (name.equals("everyone")) {
-            this.server.getPlayerManager().getPlayerList().forEach(player -> {
-                if (!Objects.equals(player.getName().getString(), playerEntity.getName().getString())) {
-                    player.sendMessage(pingMessage, true);
-                    player.playSound(SoundEvents.ENTITY_EXPERIENCE_ORB_PICKUP, SoundCategory.MASTER, 1.0f, 2f);
-                }
-            });
-        }
-
-        else {
-            ServerPlayerEntity player = this.server.getPlayerManager().getPlayer(name);
-            if (player != null) {
-                player.sendMessage(pingMessage, true);
-                player.playSound(SoundEvents.ENTITY_EXPERIENCE_ORB_PICKUP, SoundCategory.MASTER, 1.0f, 1.5f);
-            }
+        ServerPlayerEntity player = this.server.getPlayerManager().getPlayer(name);
+        if (player != null) {
+            player.sendMessage(pingMessage, true);
+            player.playSound(SoundEvents.ENTITY_EXPERIENCE_ORB_PICKUP, SoundCategory.MASTER, 1.0f, 1.5f);
         }
     }
 }

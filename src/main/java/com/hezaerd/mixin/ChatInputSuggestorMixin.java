@@ -70,7 +70,6 @@ public abstract class ChatInputSuggestorMixin {
                     ClientPlayNetworkHandler networkHandler = this.client.getNetworkHandler();
 
                     if (networkHandler != null) {
-                        playerNames.add("@everyone");
                         networkHandler.getPlayerList().forEach(entry ->
                                 playerNames.add("@" + entry.getProfile().getName())
                         );

@@ -23,10 +23,8 @@ import java.util.stream.Collectors;
 public class MessageHandlerMixin {
     @Unique
     private static final HashMap<Pattern, Integer> PATTERN_COLOR_MAP = new HashMap<>(ImmutableMap.of(
-            // @everyone
-            Pattern.compile("@everyone(?![A-Za-z0-9_.-])"), 0xFFCB25,
             // @...
-            Pattern.compile("@(?!everyone)[A-Za-z0-9_.-]+"), 0xFF52D0
+            Pattern.compile("@[A-Za-z0-9_.-]+"), 0xFF52D0
     ));
 
     @ModifyArg(
@@ -85,37 +83,24 @@ public class MessageHandlerMixin {
                                 ping + " "
                         ));
 
-        // 'everyone'
-        if (name.equals("everyone")) {
-            return style -> baseStyle.apply(style)
-                    .withHoverEvent(new HoverEvent(
-                            HoverEvent.Action.SHOW_TEXT,
-                            Text.translatable("text.action.simple-mention.everyone")
-                                    .styled(s -> s.withColor(color))
+        AtomicReference<UnaryOperator<Style>> result = new AtomicReference<>(style -> style);
+
+        if (MinecraftClient.getInstance().getServer() != null) {
+            MinecraftClient.getInstance().getServer().getPlayerManager().getPlayerList()
+                    .stream().filter(player -> Objects.equals(player.getName().getString(), name)).findFirst().ifPresent(player -> result.set(
+                            style -> baseStyle.apply(style)
+                                    .withHoverEvent(new HoverEvent(
+                                            HoverEvent.Action.SHOW_TEXT,
+                                            MutableText.of(Text.empty().getContent())
+                                                    .append(
+                                                            MutableText.of(player.getDisplayName().getContent())
+                                                                    .styled(s -> s.withColor(color))
+                                                    ).append("\n")
+                                                    .append(Text.literal(player.getUuidAsString()))
+                                    ))
                     ));
         }
 
-        // '...'
-        else {
-            AtomicReference<UnaryOperator<Style>> result = new AtomicReference<>(style -> style);
-
-            if (MinecraftClient.getInstance().getServer() != null) {
-                MinecraftClient.getInstance().getServer().getPlayerManager().getPlayerList()
-                        .stream().filter(player -> Objects.equals(player.getName().getString(), name)).findFirst().ifPresent(player -> result.set(
-                                style -> baseStyle.apply(style)
-                                        .withHoverEvent(new HoverEvent(
-                                                HoverEvent.Action.SHOW_TEXT,
-                                                MutableText.of(Text.empty().getContent())
-                                                        .append(
-                                                                MutableText.of(player.getDisplayName().getContent())
-                                                                        .styled(s -> s.withColor(color))
-                                                        ).append("\n")
-                                                        .append(Text.literal(player.getUuidAsString()))
-                                        ))
-                        ));
-            }
-
-            return result.get();
-        }
+        return result.get();
     }
 }
