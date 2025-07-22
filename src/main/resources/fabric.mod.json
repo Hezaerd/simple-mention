@@ -13,10 +13,9 @@
 	},
 	"license": "MIT",
 	"icon": "assets/simple-mention/icon.png",
-	"environment": "*",
+	"environment": "client",
 	"entrypoints": {
 		"main": ["com.hezaerd.SimpleMention"],
-		"client": ["com.hezaerd.SimpleMentionClient"],
 		"modmenu": ["com.hezaerd.config.SimpleMentionModMenu"]
 	},
 	"mixins": [

@@ -3,5 +3,7 @@
   "text.autoconfig.simple-mention.option.playSound": "Play Sound",
   "text.autoconfig.simple-mention.option.playSound.@Tooltip": "Play a sound when mentioned in chat",
   "text.autoconfig.simple-mention.option.desktopNotification": "Desktop Notification",
-  "text.autoconfig.simple-mention.option.desktopNotification.@Tooltip": "Show a desktop notification when mentioned in chat without focusing the game"
+  "text.autoconfig.simple-mention.option.desktopNotification.@Tooltip": "Show a desktop notification when mentioned in chat without focusing the game",
+  "text.action.simple-mention.everyone": "Ping everyone in a new chat",
+  "text.action.simple-mention.ping": " just pinged you in chat"
 }

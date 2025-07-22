@@ -1,7 +1,5 @@
 package com.hezaerd.utils;
 
-import net.minecraft.client.MinecraftClient;
-
 import java.awt.*;
 
 public final class DesktopNotifier {
@@ -24,7 +22,7 @@ public final class DesktopNotifier {
     }
     
     public static void notify(String title, String message) {
-        if (!isSupported || MinecraftClient.getInstance().isWindowFocused()) return;
+        if (!isSupported) return;
         TrayIcon[] icons = SystemTray.getSystemTray().getTrayIcons();
         if (icons.length > 0) {
             icons[0].displayMessage(title, message, TrayIcon.MessageType.INFO);
