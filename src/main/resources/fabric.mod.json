@@ -1,0 +1,34 @@
+{
+	"schemaVersion": 1,
+	"id": "simple-mention",
+	"version": "${version}",
+	"name": "simple-mention",
+	"description": "Simple mention allow users to mention other players in chat using @username syntax.",
+	"authors": [
+		"Hezaerd"
+	],
+	"contact": {
+		"homepage": "https://hezaerd.com",
+		"sources": "https://github.com/Hezaerd/simple-mention"
+	},
+	"license": "MIT",
+	"icon": "assets/simple-mention/icon.png",
+	"environment": "*",
+	"entrypoints": {
+		"main": [
+			"com.hezaerd.SimpleMention"
+		]
+	},
+	"mixins": [
+		"simple-mention.mixins.json"
+	],
+	"depends": {
+		"fabricloader": ">=0.16.14",
+		"minecraft": "~1.20.1",
+		"java": ">=17",
+		"fabric-api": "*"
+	},
+	"suggests": {
+		"another-mod": "*"
+	}
+}
