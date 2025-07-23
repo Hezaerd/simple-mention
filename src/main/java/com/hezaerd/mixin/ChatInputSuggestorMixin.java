@@ -1,6 +1,5 @@
 package com.hezaerd.mixin;
 
-import com.google.common.base.Strings;
 import com.mojang.brigadier.StringReader;
 import com.mojang.brigadier.suggestion.Suggestions;
 import com.mojang.brigadier.suggestion.SuggestionsBuilder;
@@ -27,10 +26,8 @@ import java.util.regex.Pattern;
 @Mixin(ChatInputSuggestor.class)
 public abstract class ChatInputSuggestorMixin {
     @Unique
-    private static final Pattern COLON_PATTERN = Pattern.compile("(@)");
-    @Unique
-    private static final Pattern WHITESPACE_PATTERN = Pattern.compile("(\\s+)");
-
+    private static final Pattern AT_PATTERN = Pattern.compile("@");
+    
     @Shadow @Final
     TextFieldWidget textField;
 
@@ -42,7 +39,7 @@ public abstract class ChatInputSuggestorMixin {
     @Shadow @Nullable
     private CompletableFuture<Suggestions> pendingSuggestions;
 
-    @Shadow 
+    @Shadow
     public abstract void show(boolean narrateFirstSuggestion);
 
     @Inject(
@@ -61,39 +58,44 @@ public abstract class ChatInputSuggestorMixin {
 
         if (!isCommand) {
             String textUptoCursor = message.substring(0, cursor);
-            int start = Math.max(getLastPattern(textUptoCursor, COLON_PATTERN) - 1, 0);
-            int whitespace = getLastPattern(textUptoCursor, WHITESPACE_PATTERN);
+            int atPosition = findLastAtPosition(textUptoCursor);
 
-            if (start < textUptoCursor.length() && start >= whitespace) {
-                if (textUptoCursor.charAt(start) == '@') {
-                    List<String> playerNames = new ArrayList<>();
-                    ClientPlayNetworkHandler networkHandler = this.client.getNetworkHandler();
-
-                    if (networkHandler != null) {
-                        networkHandler.getPlayerList().forEach(entry ->
-                                playerNames.add("@" + entry.getProfile().getName())
-                        );
-
-                        this.pendingSuggestions = CommandSource.suggestMatching(playerNames, new SuggestionsBuilder(textUptoCursor, start));
-                        this.pendingSuggestions.thenRun(() -> {
-                            if (this.pendingSuggestions.isDone()) return;
-                            this.show(false);
-                        });
-                        ci.cancel();
-                    }
+            if (atPosition >= 0 && atPosition < textUptoCursor.length()) {
+                // Check if we're currently typing a mention
+                String afterAt = textUptoCursor.substring(atPosition + 1);
+                if (!afterAt.contains(" ")) { // No space after @ means we're typing a username
+                    suggestPlayerNames(textUptoCursor, atPosition, ci);
                 }
             }
         }
     }
 
     @Unique
-    private int getLastPattern(String input, Pattern pattern){
-        if (Strings.isNullOrEmpty(input)) return 0;
-        int i = 0;
-        Matcher matcher = pattern.matcher(input);
+    private int findLastAtPosition(String text) {
+        Matcher matcher = AT_PATTERN.matcher(text);
+        int lastPosition = -1;
         while (matcher.find()) {
-            i = matcher.end();
+            lastPosition = matcher.start();
         }
-        return i;
+        return lastPosition;
+    }
+
+    @Unique
+    private void suggestPlayerNames(String textUptoCursor, int atPosition, CallbackInfo ci) {
+        List<String> playerNames = new ArrayList<>();
+        ClientPlayNetworkHandler networkHandler = this.client.getNetworkHandler();
+
+        if (networkHandler != null) {
+            networkHandler.getPlayerList().forEach(entry ->
+                    playerNames.add("@" + entry.getProfile().getName())
+            );
+
+            this.pendingSuggestions = CommandSource.suggestMatching(playerNames, new SuggestionsBuilder(textUptoCursor, atPosition));
+            this.pendingSuggestions.thenRun(() -> {
+                if (this.pendingSuggestions.isDone()) return;
+                this.show(false);
+            });
+            ci.cancel();
+        }
     }
 }

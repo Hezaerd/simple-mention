@@ -6,5 +6,9 @@
   "text.autoconfig.simple-mention.option.playSound.@Tooltip": "Play a sound when mentioned in chat",
   "text.autoconfig.simple-mention.option.desktopNotification": "Desktop Notification",
   "text.autoconfig.simple-mention.option.desktopNotification.@Tooltip": "Show a desktop notification when mentioned in chat without focusing the game",
+  "text.autoconfig.simple-mention.option.onlyMentionedPlayersSeeFormatting": "Only Mentioned Players See Formatting",
+  "text.autoconfig.simple-mention.option.onlyMentionedPlayersSeeFormatting.@Tooltip": "When enabled, only mentioned players will see colored mentions. When disabled, all players see formatted mentions.",
+  "text.autoconfig.simple-mention.option.ignoreOwnMentions": "Ignore Own Mentions",
+  "text.autoconfig.simple-mention.option.ignoreOwnMentions.@Tooltip": "When enabled, players won't receive notifications when they mention themselves",
   "text.action.simple-mention.ping": " just pinged you in chat"
 }

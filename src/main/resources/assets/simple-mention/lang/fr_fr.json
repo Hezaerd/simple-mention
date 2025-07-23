@@ -6,5 +6,9 @@
   "text.autoconfig.simple-mention.option.playSound.@Tooltip": "Jouer un son lorsque vous êtes mentionné dans le chat",
   "text.autoconfig.simple-mention.option.desktopNotification": "Notification de bureau",
   "text.autoconfig.simple-mention.option.desktopNotification.@Tooltip": "Afficher une notification de bureau lorsque vous êtes mentionné dans le chat sans se concentrer sur le jeu",
+  "text.autoconfig.simple-mention.option.onlyMentionedPlayersSeeFormatting": "Seuls les joueurs mentionnés voient le formatage",
+  "text.autoconfig.simple-mention.option.onlyMentionedPlayersSeeFormatting.@Tooltip": "Quand activé, seuls les joueurs mentionnés verront les mentions colorées. Quand désactivé, tous les joueurs voient les mentions formatées.",
+  "text.autoconfig.simple-mention.option.ignoreOwnMentions": "Ignorer ses propres mentions",
+  "text.autoconfig.simple-mention.option.ignoreOwnMentions.@Tooltip": "Quand activé, les joueurs ne recevront pas de notifications quand ils se mentionnent eux-mêmes",
   "text.action.simple-mention.ping": " vous a mentionné dans le chat"
 }

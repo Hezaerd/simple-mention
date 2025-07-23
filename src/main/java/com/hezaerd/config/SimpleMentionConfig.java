@@ -13,14 +13,20 @@ import net.minecraft.sound.SoundEvents;
 public class SimpleMentionConfig implements ConfigData {
     @ConfigEntry.Gui.Tooltip
     public boolean enabled = true;
-    
+
     @ConfigEntry.Gui.Tooltip
     public boolean playSound = true;
-    
+
     public SoundEvent sound = SoundEvents.BLOCK_NOTE_BLOCK_PLING.value();
 
     @ConfigEntry.Gui.Tooltip
     public boolean desktopNotification = true;
+
+    @ConfigEntry.Gui.Tooltip
+    public boolean onlyMentionedPlayersSeeFormatting = true;
+
+    @ConfigEntry.Gui.Tooltip
+    public boolean ignoreOwnMentions = false;
 
     public static void register() {
         AutoConfig.register(SimpleMentionConfig.class, Toml4jConfigSerializer::new);
