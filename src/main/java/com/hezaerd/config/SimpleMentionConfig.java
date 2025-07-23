@@ -12,9 +12,11 @@ import net.minecraft.sound.SoundEvents;
 @Config(name = ModLib.MOD_ID)
 public class SimpleMentionConfig implements ConfigData {
     @ConfigEntry.Gui.Tooltip
-    public boolean playSound = true;
-
+    public boolean enabled = true;
+    
     @ConfigEntry.Gui.Tooltip
+    public boolean playSound = true;
+    
     public SoundEvent sound = SoundEvents.BLOCK_NOTE_BLOCK_PLING.value();
 
     @ConfigEntry.Gui.Tooltip
